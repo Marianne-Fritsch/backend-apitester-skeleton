@@ -27,3 +27,12 @@ print(associations_df.head())
 @app.route('/api/associations', methods=['GET'])
 def asso_list():
     return 200, associations_df['nom'].tolist()
+
+@app.route('/api/association/<int:id>', methods=['GET'])
+def asso_details(id):
+    if associations_df['id'].isin([id]).sum() != 0:
+        return 200, associations_df['description'].iloc(id-1)
+    else : 
+        return 404, 'Not Found : { "error": "Association not found" }'
+
+
