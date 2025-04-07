@@ -22,5 +22,8 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 def check_alive():
     return (200 '{"message" : "Alive"}')
 
+print(associations_df.head())
 
-
+@app.route('/api/associations', methods=['GET'])
+def asso_list():
+    return 200, associations_df['nom'].tolist()
