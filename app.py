@@ -22,8 +22,6 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 def check_alive():
     return (200 '{"message" : "Alive"}')
 
-print(associations_df.head())
-
 @app.route('/api/associations', methods=['GET'])
 def asso_list():
     return 200, associations_df['nom'].tolist()
@@ -34,5 +32,9 @@ def asso_details(id):
         return 200, associations_df['description'].iloc(id-1)
     else : 
         return 404, 'Not Found : { "error": "Association not found" }'
+
+@app.route('/api/association/<int:id>/evenements', methods=['GET'])
+def event(asso):
+    return 200, evenements_df.loc[evenements_df['association_id'] == asso]
 
 
